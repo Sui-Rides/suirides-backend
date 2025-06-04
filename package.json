@@ -1,6 +1,7 @@
 {
   "name": "suirides-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "SuiRides is a ride-sharing application that connects drivers and passengers.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +19,9 @@
   },
   "homepage": "https://github.com/Sui-Rides/suirides-backend#readme",
   "dependencies": {
+    "@mysten/sui": "^1.30.2",
     "@mysten/sui.js": "^0.54.1",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "multer": "^2.0.1",
     "pg": "^8.16.0",
