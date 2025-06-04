@@ -1,8 +1,8 @@
-const express = require('express');
-const { Pool } = require('pg');
-const { SuiClient } = require('mysten/sui.js');
-const multer = require('multer');
-require('dotenv').config();
+import express  from 'express';
+import { Pool } from 'pg';
+import { SuiClient } from '@mysten/sui/client';
+import multer from 'multer';
+import dotenv from 'dotenv';
 
 const app = express();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -11,14 +11,14 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
 
-const { uploadToWalrus } = require('./walrus/walrus');
+import { uploadToWalrus } from './walrus/walrus.js';
 
-app.post('/uploaf-kyc', upload.single('file'), async (req, res) => {
+app.post('/upload-kyc', upload.single('file'), async (req, res) => {
     const { wallet } = req.body;
     const file = req.file;
 
     if (!wallet || !file) {
-        return req.statusCode(400).json({ error: 'Wallet and file are required' });
+        return req.status(400).json({ error: 'Wallet and file are required' });
     }
 
     try {
@@ -27,7 +27,7 @@ app.post('/uploaf-kyc', upload.single('file'), async (req, res) => {
             'INSERT INTO users (wallet, kyc_blob_id, reputation) VALUES ($1, $2, $3) ON CONFLICT (wallet) DO UPDATE SET kyc_blob_id = $2',
             [wallet, blobId, 1000]
         );
-        res.status(200).json({ message: 'KYC uploaded succefullly', blobId });
+        res.status(200).json({ message: 'KYC uploaded succefully', blobId });
     } catch (error) {
         console.error('Upload error:', error);
         res.status(500).json({ error: 'Failed to upload KYC' });
