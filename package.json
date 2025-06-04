@@ -1,0 +1,27 @@
+{
+  "name": "suirides-backend",
+  "version": "1.0.0",
+  "description": "SuiRides is a ride-sharing application that connects drivers and passengers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sui-Rides/suirides-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sui-Rides/suirides-backend/issues"
+  },
+  "homepage": "https://github.com/Sui-Rides/suirides-backend#readme",
+  "dependencies": {
+    "@mysten/sui.js": "^0.54.1",
+    "express": "^5.1.0",
+    "multer": "^2.0.1",
+    "pg": "^8.16.0",
+    "walrus-sdk": "^1.0.1"
+  }
+}
