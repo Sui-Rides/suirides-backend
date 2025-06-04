@@ -1,6 +1,6 @@
-import walrus from 'walrus-sdk';
+import Walrus from 'walrus-sdk';
 
-walrus.config({
+const walrus = new Walrus({
     apiKey: process.env.WALRUS_API_KEY,
 });
 
