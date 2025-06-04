@@ -1,4 +1,4 @@
-const walrus = require('walrus-sdk');
+import walrus from 'walrus-sdk';
 
 walrus.config({
     apiKey: process.env.WALRUS_API_KEY,
@@ -14,4 +14,4 @@ const getFromWalrus = async (blobId) => {
     return file;
 };
 
-module.exports = { uploadToWalrus, getFromWalrus };
+export { uploadToWalrus, getFromWalrus };
