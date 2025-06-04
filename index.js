@@ -2,7 +2,6 @@ const express = require('express');
 const { Pool } = require('pg');
 const { SuiClient } = require('mysten/sui.js');
 const multer = require('multer');
-const { uploadToWalrus } = require('./walrus/walrus');
 require('dotenv').config();
 
 const app = express();
@@ -12,11 +11,7 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
 
-// Test endpoint
-app.get('/', (req, res) => {
-    res.send('SuiRides Backend is running');
-});
-
+const { uploadToWalrus } = require('./walrus/walrus');
 
 app.post('/uploaf-kyc', upload.single('file'), async (req, res) => {
     const { wallet } = req.body;
@@ -37,6 +32,12 @@ app.post('/uploaf-kyc', upload.single('file'), async (req, res) => {
         console.error('Upload error:', error);
         res.status(500).json({ error: 'Failed to upload KYC' });
     }
+});
+
+
+// Test endpoint
+app.get('/', (req, res) => {
+    res.send('SuiRides Backend is running');
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'));
