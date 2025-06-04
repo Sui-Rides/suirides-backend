@@ -9,3 +9,9 @@ const uploadToWalrus = async (file) => {
     return blobId;
 };
 
+const getFromWalrus = async (blobId) => {
+    const file = await walrus.get(blobId);
+    return file;
+};
+
+module.exports = { uploadToWalrus, getFromWalrus };
