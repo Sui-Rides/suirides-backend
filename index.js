@@ -3,6 +3,7 @@ import { Pool } from 'pg';
 import { SuiClient } from '@mysten/sui/client';
 import multer from 'multer';
 import dotenv from 'dotenv';
+import { log, error }  from './logger.js'
 
 const app = express();
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -11,7 +12,7 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
 
-import { uploadToWalrus } from './walrus/walrus.js';
+import { uploadToWalrus } from './walrus.js';
 
 app.post('/upload-kyc', upload.single('file'), async (req, res) => {
     const { wallet } = req.body;
@@ -28,9 +29,19 @@ app.post('/upload-kyc', upload.single('file'), async (req, res) => {
             [wallet, blobId, 1000]
         );
         res.status(200).json({ message: 'KYC uploaded succefully', blobId });
-    } catch (error) {
+    } catch (err) {
         console.error('Upload error:', error);
         res.status(500).json({ error: 'Failed to upload KYC' });
+    }
+});
+
+app.get('/test-db', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT NOW()');
+        res.status(200).json({ time: result.rows[0].now});
+    } catch (err) {
+        err(`Database connection error: ${err.message}`);
+        res.status(500).json({ error: 'Database connection failed'});
     }
 });
 
@@ -40,4 +51,4 @@ app.get('/', (req, res) => {
     res.send('SuiRides Backend is running');
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(3000, () => log('Server running on port 3000'));
