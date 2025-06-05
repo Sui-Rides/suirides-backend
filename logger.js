@@ -6,4 +6,4 @@ const error = (message) => {
     console.error(`[${new Date().toISOString()}] ERROR: ${message}`);
 };
 
-export { log, error };
+export { log, error };error
