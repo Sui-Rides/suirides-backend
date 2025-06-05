@@ -13,6 +13,7 @@ const upload = multer({ dest: 'uploads/' });
 app.use(express.json());
 
 import { uploadToWalrus } from './walrus.js';
+import startEventListener from './eventListener.js';
 
 app.post('/upload-kyc', upload.single('file'), async (req, res) => {
     const { wallet } = req.body;
@@ -51,4 +52,9 @@ app.get('/', (req, res) => {
     res.send('SuiRides Backend is running');
 });
 
-app.listen(3000, () => log('Server running on port 3000'));
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, async () => {
+    log(`Server running on port ${PORT}`);
+    await startEventListener();
+});
